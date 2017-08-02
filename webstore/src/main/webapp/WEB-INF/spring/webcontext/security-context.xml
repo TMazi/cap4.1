@@ -13,7 +13,8 @@
 		<security:intercept-url pattern="/books/delete"
 			access="ROLE_ADMIN" />
 		<security:form-login login-page="/login"
-			default-target-url="/books" authentication-failure-url="/loginfailed" />
+			default-target-url="/books" authentication-failure-url="/loginfailed"
+			always-use-default-target="true" />
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />

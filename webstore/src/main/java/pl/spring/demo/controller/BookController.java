@@ -2,6 +2,9 @@ package pl.spring.demo.controller;
 
 import java.util.List;
 
+import javax.swing.JFrame;
+import javax.swing.JOptionPane;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.WebDataBinder;
@@ -54,11 +57,14 @@ public class BookController {
 	}
 	
 	@RequestMapping("/delete")
-	public String deleteBook(@RequestParam("id") String id) {
+	public ModelAndView deleteBook(@RequestParam("id") String id) {
 		
 		long bookId = Long.parseLong(id);
 		bookService.deleteBook(bookId);
-		return "redirect:/books";
+		ModelAndView modelAndView = new ModelAndView();
+		modelAndView.setViewName(ViewNames.DELETED);
+		
+		return modelAndView;
 	}
 
 	// TODO: here implement methods which displays book info based on query
@@ -70,6 +76,7 @@ public class BookController {
 		modelAndView.setViewName(ViewNames.BOOK);
 		BookTo book = bookService.findBookById(id);
 		modelAndView.addObject(ModelConstants.BOOK, book);
+		modelAndView.addObject("bookId", bookId);
 
 		return modelAndView;
 
