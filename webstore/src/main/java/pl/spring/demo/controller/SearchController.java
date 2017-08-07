@@ -16,7 +16,7 @@ import pl.spring.demo.to.BookTo;
 @Controller
 @RequestMapping("/search")
 public class SearchController {
-	
+
 	@Autowired
 	BookService bookService;
 
@@ -31,7 +31,7 @@ public class SearchController {
 	@RequestMapping("/")
 	public ModelAndView findBooksByCriteria(@RequestParam("author") String author,
 			@RequestParam("title") String title) {
-		
+
 		List<BookTo> books = bookService.findBooksByAuthorAndTitle(title, author);
 		ModelAndView modelAndView = new ModelAndView();
 		modelAndView.setViewName(ViewNames.BOOKS);

@@ -24,23 +24,23 @@ public class BookRestService {
 	BookService bookService;
 
 	@RequestMapping(value = "/books", method = RequestMethod.PUT)
-	public BookTo addRestNewBook(@RequestBody BookTo book) {
+	public BookTo addNewBook(@RequestBody BookTo book) {
 		return bookService.saveBook(book);
 	}
 
 	@RequestMapping(value = "/books", method = RequestMethod.DELETE)
-	public void deleteRestBook(@RequestParam("id") long bookId) {
+	public void deleteBook(@RequestParam("id") long bookId) {
 		bookService.deleteBook(bookId);
 	}
 
 	@RequestMapping(value = "/books", method = RequestMethod.GET)
-	public List<BookTo> getRestAllBooks() {
+	public List<BookTo> getAllBooks() {
 		return bookService.findAllBooks();
 	}
-
+	
 	@RequestMapping(value = "/books/{ids}", method = RequestMethod.GET)
 	@ResponseBody
-	public List<BookTo> getRestSpecifiedBook(@PathVariable long[] ids) {
+	public List<BookTo> getSpecifiedBook(@PathVariable long[] ids) {
 		List<BookTo> result = new ArrayList<>();
 		for (long id : ids) {
 			result.add(bookService.findBookById(id));

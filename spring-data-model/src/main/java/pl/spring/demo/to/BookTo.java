@@ -6,12 +6,12 @@ public class BookTo {
     private Long id;
     private String title;
     private String authors;
-    private BookStatus status;
-    
-    public BookTo() {
-    }
+	private BookStatus status;
 
-    public BookTo(Long id, String title, String authors, BookStatus status) {
+	public BookTo() {
+	}
+
+	public BookTo(Long id, String title, String authors, BookStatus status) {
         this.id = id;
         this.title = title;
         this.authors = authors;
