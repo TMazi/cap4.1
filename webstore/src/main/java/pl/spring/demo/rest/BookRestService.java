@@ -1,18 +1,51 @@
 package pl.spring.demo.rest;
 
-import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.ResponseBody;
+import java.util.ArrayList;
+import java.util.List;
 
-@Controller
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.RestController;
+
+import pl.spring.demo.service.BookService;
+import pl.spring.demo.to.BookTo;
+
+@RestController
 @ResponseBody
+@RequestMapping("/rest")
 public class BookRestService {
 
-	// TODO: Inject properly book service
+	@Autowired
+	BookService bookService;
 
-	// TODO: implement all necessary CRUD operations as a rest service
+	@RequestMapping(value = "/books", method = RequestMethod.PUT)
+	public BookTo addRestNewBook(@RequestBody BookTo book) {
+		return bookService.saveBook(book);
+	}
 
-	// TODO: implement some search methods considering single request parameters
-	// / multiple request parameters / array request parameters
+	@RequestMapping(value = "/books", method = RequestMethod.DELETE)
+	public void deleteRestBook(@RequestParam("id") long bookId) {
+		bookService.deleteBook(bookId);
+	}
 
-	
+	@RequestMapping(value = "/books", method = RequestMethod.GET)
+	public List<BookTo> getRestAllBooks() {
+		return bookService.findAllBooks();
+	}
+
+	@RequestMapping(value = "/books/{ids}", method = RequestMethod.GET)
+	@ResponseBody
+	public List<BookTo> getRestSpecifiedBook(@PathVariable long[] ids) {
+		List<BookTo> result = new ArrayList<>();
+		for (long id : ids) {
+			result.add(bookService.findBookById(id));
+		}
+		return result;
+	}
+
 }

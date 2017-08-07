@@ -17,9 +17,11 @@ public class UserEntity implements Serializable {
 	@GeneratedValue(strategy = GenerationType.AUTO)
 	private Long id;
 	@Column(nullable = false, length = 50)
-	private String userName;
+	private String username;
 	@Column(nullable = false, length = 200)
 	private String password;
+	@Column(nullable = false)
+	private boolean enable;
 
 	// for hibernate
 	protected UserEntity() {
@@ -27,7 +29,7 @@ public class UserEntity implements Serializable {
 
 	public UserEntity(Long id, String user, String password) {
 		this.id = id;
-		this.userName = user;
+		this.username = user;
 		this.password = password;
 	}
 
@@ -40,11 +42,11 @@ public class UserEntity implements Serializable {
 	}
 
 	public String getUserName() {
-		return userName;
+		return username;
 	}
 
 	public void setUserName(String user) {
-		this.userName = user;
+		this.username = user;
 	}
 
 	public String getPassword() {
@@ -54,4 +56,13 @@ public class UserEntity implements Serializable {
 	public void setPassword(String password) {
 		this.password = password;
 	}
+
+	public boolean isEnable() {
+		return enable;
+	}
+
+	public void setEnable(boolean enable) {
+		this.enable = enable;
+	}
+
 }

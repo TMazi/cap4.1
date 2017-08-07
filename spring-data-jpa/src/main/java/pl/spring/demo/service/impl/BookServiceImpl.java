@@ -41,13 +41,9 @@ public class BookServiceImpl implements BookService {
 
 	@Override
 	public List<BookTo> findBooksByAuthorAndTitle(String title, String author) {
-		if(title.equals(null)) {
-			return findBooksByAuthor(author);
-		}
-		else if(author.equals(null)) {
-			return findBooksByTitle(title);
-		}
-		return BookMapper.map2To(bookRepository.findBookByAuthorAndTitle(title, author));
+		String searchtitle = title == null ? "" : title;
+		String searchauthor = title == null ? "" : author;
+		return BookMapper.map2To(bookRepository.findBookByAuthorAndTitle(searchtitle, searchauthor));
 	}
 
 	@Override

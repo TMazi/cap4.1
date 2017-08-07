@@ -41,7 +41,8 @@
 	<context-param>
 		<param-name>contextConfigLocation</param-name>
 		<param-value>
-/WEB-INF/spring/webcontext/security-context.xml 
+/WEB-INF/spring/webcontext/security-context.xml
+/WEB-INF/spring/webcontext/database-context.xml
 </param-value>
 </context-param>
 	
@@ -63,6 +64,6 @@ org.springframework.web.context.ContextLoaderListener
 	<url-pattern>/*</url-pattern>
 </filter-mapping>
 	
-	
+		
 
 </web-app>

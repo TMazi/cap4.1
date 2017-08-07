@@ -10,7 +10,7 @@ import pl.spring.demo.entity.UserEntity;
 
 public interface UserRepository extends JpaRepository<UserEntity, Long> {
 
-	@Query("select user from UserEntity user where upper(user.userName) like concat(upper(:name), '%')")
+	@Query("select user from UserEntity user where upper(user.username) like concat(upper(:name), '%')")
 	public List<UserEntity> findUsersByName(@Param("name") String name);
 
 }

@@ -2,6 +2,8 @@
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <%@ taglib prefix="form" uri="http://www.springframework.org/tags/form"%>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags"%>
+<%@ taglib prefix="sec"
+	uri="http://www.springframework.org/security/tags"%>
 
 <html>
 <head>
@@ -11,18 +13,30 @@
 <title>Add Book</title>
 </head>
 <body>
+	<nav class="navbar navbar-inverse">
+		<div class="container-fluid">
+			<ul class="nav navbar-nav">
+				<li class="active"><a href="/webstore">Home</a></li>
+				<sec:authorize access="isAnonymous()">
+					<li><a href="<c:url value="/login" />">Login</a></li>
+				</sec:authorize>
+				<sec:authorize access="isAuthenticated()">
+					<li><a href="<c:url value="/logout" />">Log out</a></li>
+				</sec:authorize>
+
+			</ul>
+		</div>
+	</nav>
 	<section>
 		<div class="jumbotron">
 			<div class="container">
 				<h1>Book</h1>
 				<p>Add new book</p>
 			</div>
-			<a href="<c:url value="/j_spring_security_logout" />"
-				class="btn btn-danger btn-mini pull-right">logout</a>
 		</div>
 	</section>
 	<section class="container">
-		<form:form modelAttribute="newBook" class="form-horizontal">
+		<form:form modelAttribute="newBook" class="form-horizontal" method="POST">
 			<fieldset>
 				<legend>Add new book</legend>
 

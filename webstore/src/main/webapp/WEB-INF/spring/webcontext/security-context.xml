@@ -7,29 +7,25 @@
 		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
 		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.2.xsd">
 
-	<security:http auto-config="true">
+	<security:http auto-config="true" use-expressions="true">
 		<security:intercept-url pattern="/books/add"
-			access="ROLE_ADMIN" />
+			access="hasRole('ROLE_ADMIN')" />
 		<security:intercept-url pattern="/books/delete"
-			access="ROLE_ADMIN" />
+			access="hasRole('ROLE_ADMIN')" />
 		<security:form-login login-page="/login"
-			default-target-url="/books" authentication-failure-url="/loginfailed"
-			always-use-default-target="true" />
+			authentication-failure-url="/loginfailed" username-parameter="j_username"
+			password-parameter="j_password" />
 		<security:logout logout-success-url="/logout" />
 		<security:access-denied-handler
 			error-page="/403" />
 	</security:http>
 
-
-
 	<security:authentication-manager>
 		<security:authentication-provider>
-			<security:user-service>
-				<security:user name="admin" password="admin"
-					authorities="ROLE_ADMIN" />
-				<security:user name="user" password="user"
-					authorities="ROLE_USER" />
-			</security:user-service>
+			<security:jdbc-user-service
+				data-source-ref="dataSource"
+				users-by-username-query="SELECT username, password, enable from userentity where username=?"
+				authorities-by-username-query="select username, role from userroles where username=?" />
 		</security:authentication-provider>
 	</security:authentication-manager>
 
